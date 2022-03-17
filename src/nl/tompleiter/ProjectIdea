@@ -1,0 +1,42 @@
+// Escape the Code
+Het is de bedoeling om door middel van spellen zo snel mogelijk aan het eind van de code te komen, hierbij zullen de volgende spellen aan bod komen;
+*set timer*
+1. Kraak de kluis, doormiddel van een aantal hints moet de gebruiker en 4 cijferige code weten te kraken.
+
+2. In deze kluis ligt een sleutel. De volgende stap is om met deze sleutel een deur te kiezen waar de gebruiker verder kan met het spel.
+Er zijn echter 3 deuren en de juiste wordt willekeurig door het script gekozen. Bij een verkeerde keuze moet de gebruiker een nieuwe kluis openen.
+
+3. Na het kiezen van de juiste deur krijgt de gebruiker een klein raadsel dat hij/zij moet zien te verwerken.
+
+Coderen vereist een bepaalde denkwijze en een bepaalde taal, hiermee bedoelen we misschien niet de taal waar jij als eerst aan denkt.
+{name gebruiker}, we blijven even bij deze taal, wat zegt het getal {age} jou?
+Over het algemeen gaat het tot nu toe best goed.
+Na deze laatste zin zou het goed moeten zijn.
+
+AGE
+General
+English
+Alright
+
+4. De uitkomsten van dit raadsel moeten op een bepaalde manier in een een "grid" worden verwerkt. Wanneer dit op de juiste manier wordt gedaan zal het spel zijn afgelopen.
+
+A G E
+L E N
+R N G
+I E L
+G R I
+H A S
+T L H
+
+*Stop timer*
+
+De speler kan kiezen om nog een keer te spelen om zijn tijd te verbeteren of om te stoppen.
+
+
+A G E
+L E N
+R N G
+I D L
+G E I
+H R S
+T M H
