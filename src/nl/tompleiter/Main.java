@@ -34,11 +34,11 @@ public class Main {
         System.out.println("De bedoeling van het spel is om zo snel mogelijk tot het einde van de code te komen, wat er allemaal voorbij gaat komen is een verrassing, maar we kunnen je alvast verklappen dat je eerst een kluis moet zien te kraken.");
 
 // Spel en tijd starten;
-        System.out.println("Wil je het spel en daarmee de tijd starten? Toets kleine letter [y/n]");
+        System.out.println("Wil je het spel en daarmee de tijd starten? Toets [y/n]");
 
 // Ophalen gebruikers input om het spel te starten;
         Scanner startPlay = new Scanner(System.in);
-        String chooseStartPlaying = startPlay.nextLine();
+        String chooseStartPlaying = startPlay.nextLine().toLowerCase();
 
 // Switch statement om te bepalen hoe de code zich gedraagd na de keuze van de gebruiker om te starten met spelen;
         switch (chooseStartPlaying) {
@@ -147,12 +147,89 @@ public class Main {
 
 
 // //////////////////////////////////////RAADSEL////////////////////////////////////////////////////////////////////////
-//        String Array voor het vastleggen van de oplossingen
-        String[] riddleSolutions = {"english", "age", "general", "alright"};
+// String Array voor het vastleggen van de oplossingen
+        String[] riddleSolutions = {"ENGLISH", "AGE", "GENERAL", "ALRIGHT"};
         System.out.println("Om een stukje dichterbij het einde van de code te komen dien een raadsel op te lossen, typ na elke zin het woord waarvan jij denkt dat daar wordt gezocht.");
         System.out.println("Coderen vereist een bepaalde denkwijze en een bepaalde taal, hiermee bedoelen we misschien niet de taal waar jij als eerst aan denkt.");
 
-        String firstRiddleGuess = input.nextLine();
+        Scanner riddleInput = new Scanner(System.in);
 
+// Eerste while-loop tot juiste oplossing
+        boolean firstRiddleAnswer = false;
+        while (firstRiddleAnswer == false) {
+            String firstRiddleGuess = riddleInput.nextLine().toUpperCase();
+            if (firstRiddleGuess.equals(riddleSolutions[0])) {
+                firstRiddleAnswer = true;
+                System.out.println(firstRiddleGuess + " is het woord dat we zochten!");
+            } else {
+                System.out.println(firstRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
+                ;
+            }
+        }
+// Tweede while-loop tot juiste oplossing
+        System.out.println(player.getName() + ", we blijven even bij deze taal, wat zegt het getal " + player.getAge() + " jou?");
+        boolean secondRiddleAnswer = false;
+        while (secondRiddleAnswer == false) {
+            String secondRiddleGuess = riddleInput.nextLine().toUpperCase();
+            if (secondRiddleGuess.equals(riddleSolutions[1])) {
+                secondRiddleAnswer = true;
+                System.out.println(secondRiddleGuess + " is het woord dat we zochten!");
+            } else {
+                System.out.println(secondRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
+                ;
+            }
+        }
+// Derde while-loop tot juiste oplossing
+        System.out.println("Over het algemeen gaat het tot nu toe best goed.");
+        boolean thirdRiddleAnswer = false;
+        while (thirdRiddleAnswer == false) {
+            String thirdRiddleGuess = riddleInput.nextLine().toUpperCase();
+            if (thirdRiddleGuess.equals(riddleSolutions[2])) {
+                thirdRiddleAnswer = true;
+                System.out.println(thirdRiddleGuess + " is het woord dat we zochten!");
+            } else {
+                System.out.println(thirdRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
+                ;
+            }
+// Vierde while-loop tot juiste oplossing
+            System.out.println("Na deze laatste zin zou het goed moeten zijn..");
+            boolean fourthRiddleAnswer = false;
+            while (fourthRiddleAnswer == false) {
+                String fourthRiddleGuess = riddleInput.nextLine().toUpperCase();
+                if (fourthRiddleGuess.equals(riddleSolutions[3])) {
+                    fourthRiddleAnswer = true;
+                    System.out.println(fourthRiddleGuess + " is het woord dat we zochten!");
+                } else {
+                    System.out.println(fourthRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
+                }
+
+                System.out.println("Onthoud de antwoorden goed, er ontstaat een magisch veld op de muur in deze ruimte");
+
+// Grid aanmaken
+                String[] board = new String[21];
+
+                for (int i = 0; i < 21 ; i++) {
+                    board[i] = Integer.toString(i);
+                }
+                printBoard(board);
+            }
+        }
+    }
+    public static void printBoard(String[] board) {
+        for (int i = 0; i < board.length; i++) {
+            System.out.print(board[i]);
+
+            boolean isEndOfRow = (i + 1) % 3 == 0;
+            boolean isLastField = i == 20;
+
+            if (isEndOfRow == false) {
+                System.out.print(" | ");
+            }
+            if (isEndOfRow && !isLastField) {
+                System.out.println("\n_____________");
+            }
+        }
     }
 }
+
+
