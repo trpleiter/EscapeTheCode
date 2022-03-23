@@ -9,18 +9,19 @@ public class Main {
         System.out.println("Welkom bij Escape The Code");
         System.out.println("Voordat we beginnen willen we eerst je naam en leeftijd weten");
 
-// Aanroepen Scanner methode en Stopwatch class (zodat deze is aan te roepen vanuit alle scopes in de main classe)
+// Aanroepen Scanner methode en Stopwatch class (zodat deze is aan te roepen vanuit alle scopes in de main class)
         Scanner input = new Scanner(System.in);
         Stopwatch stopwatch = new Stopwatch();
 
 
-// Gebruiker laten invullen wie de huidige gebruiker is
+// Gebruiker laten invullen wie de huidige speler is
         System.out.println("Naam:");
         String currentPlayer = input.nextLine();
         System.out.println("Leeftijd:");
         int agePlayer = input.nextInt();
 
         Player player = new Player(currentPlayer, agePlayer);
+        Game game = new Game(player);
 
 //Welkomsbericht
 
@@ -60,6 +61,7 @@ public class Main {
         }
 //        //////////////////////////////////////KRAAK DE KLUIS//////////////////////////////////////////////////////////
         System.out.println("In de eerste ruimte bevinden zich gigantisch veel kluizen");
+// Opzetten while loop zodat de speler wordt gereset naar het begin van het spel bij keuze van een verkeerde deur;
         boolean isRightDoorOpened = false;
         while (!isRightDoorOpened) {
 
@@ -70,16 +72,16 @@ public class Main {
             int fourthDigitSafe;
 
 // Bepalen TOT welke waarde maximaal kan worden gegaan;
-            int maximum = 9;
+            int digitSafeMaximum = 9;
 
 // Aanroepen methode om random getallen te genereren;
             Random randomizer = new Random();
 
 // Opzetten willekeur tussen welke waarde (1-9) maximaal kan worden gegaan;
-            firstDigitSafe = randomizer.nextInt(maximum) + 1;
-            secondDigitSafe = randomizer.nextInt(maximum) + 1;
-            thirdDigitSafe = randomizer.nextInt(maximum) + 1;
-            fourthDigitSafe = randomizer.nextInt(maximum) + 1;
+            firstDigitSafe = randomizer.nextInt(digitSafeMaximum) + 1;
+            secondDigitSafe = randomizer.nextInt(digitSafeMaximum) + 1;
+            thirdDigitSafe = randomizer.nextInt(digitSafeMaximum) + 1;
+            fourthDigitSafe = randomizer.nextInt(digitSafeMaximum) + 1;
 
 // Controle willekeurig gegenereerde nummers;
             System.out.println("Het eerste getal is: " + firstDigitSafe);
@@ -87,7 +89,7 @@ public class Main {
             System.out.println("Het derde getal is: " + thirdDigitSafe);
             System.out.println("Het vierde getal is: " + fourthDigitSafe);
 
-            // Som en product bepalen en vastzetten in variabelen;
+// Som en product bepalen en vastzetten in variabelen;
             int sumOfDigits = firstDigitSafe + secondDigitSafe + thirdDigitSafe + fourthDigitSafe;
             int productOfDigits = firstDigitSafe * secondDigitSafe * thirdDigitSafe * fourthDigitSafe;
 
@@ -95,32 +97,29 @@ public class Main {
             System.out.println("De som van de getallen is: " + sumOfDigits);
             System.out.println("Het product van de getallen is: " + productOfDigits);
 
+// While loop tot dat de cijfercombinatie juist is;
             boolean isSafeCracked = false;
             while (!isSafeCracked) {
 
-// Ophalen gebruikers input van nummers;
+// Ophalen input gebruiker;
                 System.out.println("Vul vier getallen achter elkaar in");
                 int firstGuess = input.nextInt();
                 int secondGuess = input.nextInt();
                 int thirdGuess = input.nextInt();
                 int fourthGuess = input.nextInt();
-
                 System.out.println("Je hebt de volgende getallen gekozen: " + firstGuess + ", " + secondGuess + ", " + thirdGuess + " en " + fourthGuess);
 
-// Conditie toevoegen om te winnen en dat de volgorde van de nummers niet uitmaakt;
-                int sumOfGuessedDigits = firstGuess + secondGuess + thirdGuess + fourthGuess;
-                int productOfGuessedDigits = firstGuess * secondGuess * thirdGuess * fourthGuess;
+// Conditie checken die in de Game class is gemaakt;
+                isSafeCracked = game.checkSafeCracked(sumOfDigits, productOfDigits, firstGuess, secondGuess, thirdGuess, fourthGuess);
 
-                isSafeCracked = sumOfDigits == sumOfGuessedDigits && productOfDigits == productOfGuessedDigits;
-
-// Resultaat winst of verlies;
+// Bericht na invoer gebruiker;
                 if (isSafeCracked) {
                     System.out.println("Klink! Je hebt de cijfercombinatie goed, de kluis is gekraakt! In de kluis vind je een sleutel!");
                 } else {
                     System.out.println("De cijfercombinatie is niet juist, de kluis zit nog dicht!");
                 }
             }
-// ////////////////////////////////////////KIES DE JUISTE DEUR///////////////////////////////////////////////////
+// ////////////////////////////////////////////KIES DE JUISTE DEUR//////////////////////////////////////////////////////
 
             System.out.println("Met de sleutel kun je een deur openen, er zijn echter drie deuren en de sleutel kan maar één keer gebruikt worden");
             System.out.println("Wanneer de gekozen deur niet juist is, moet er een nieuwe kluis worden geopend voor een nieuwe sleutel");
@@ -137,8 +136,8 @@ public class Main {
             int doorGuess = input.nextInt();
 
 // Logica goede deur
-            if (doorGuess == randomDoorChooser) {
-                isRightDoorOpened = true;
+            isRightDoorOpened = game.checkRightDoor (randomDoorChooser, doorGuess);
+            if (isRightDoorOpened) {
                 System.out.println("Je hebt deur " + doorGuess + " gekozen en dat is de juiste deur! In de volgende ruimte dien je een raadsel op te lossen.");
             } else {
                 System.out.println("Helaas, achter deur " + doorGuess + " bevindt zich een lege ruimte, maak snel een nieuwe kluis open!");
@@ -165,9 +164,9 @@ public class Main {
                 String riddleGuess = riddleInput.nextLine().toUpperCase();
                 if (riddleGuess.equals(riddleSolutions[i])) {
                     riddleAnswer = true;
-                    System.out.println(riddleGuess + " is een woord dat we zochten! Op naar de volgende!");
+                    System.out.println(riddleGuess + " is het woord dat we zochten! Op naar de volgende!");
                 } else {
-                    System.out.println(riddleGuess + " is geen woord dat we zoeken, probeer het opnieuw!");
+                    System.out.println(riddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw!");
                 }
             }
         }
@@ -183,18 +182,18 @@ public class Main {
         printBoard(board);
 
 // Aanmaken String Array om over de juiste antwoorden te kunnen loopen (ENGLISH, AGE, GENERAL en ALRIGHT)
-        String[] gridSolutions = {"A", "G", "E", "L", "E", "N", "R", "N", "G", "I", "E", "L", "G", "R", "I", "H", "A", "S", "T", "L", "H"};
+        String[] gridSolution = {"A", "G", "E", "L", "E", "N", "R", "N", "G", "I", "E", "L", "G", "R", "I", "H", "A", "S", "T", "L", "H"};
 
 // Aanmaken loop om elk veld te kunnen invullen en om dit vervolgens dit kunnen controleren
 
         for (int i = 0; i < board.length; i++) {
             boolean isGridFieldCorrect = false;
             while (!isGridFieldCorrect) {
-                System.out.println("\nTyp letter op de positie " + i + " op het veld te vervangen.");
+                System.out.println("\nTyp een letter in om positie " + i + " op het veld te vervangen met die letter.");
                 Scanner gridInput = new Scanner(System.in);
-                String selectChar = gridInput.nextLine().toUpperCase();
-                board[i] = selectChar;
-                if (board[i].equals(gridSolutions[i])) {
+                String riddleChar = gridInput.nextLine().toUpperCase();
+                board[i] = riddleChar;
+                if (board[i].equals(gridSolution[i])) {
                     isGridFieldCorrect = true;
                     printBoard(board);
                 } else {
@@ -212,7 +211,7 @@ public class Main {
 //  H A S
 //  T L H
 
-        boolean isGridComplete = checkCompleteGrid(board);
+        boolean isGridComplete = game.checkCompleteGrid(board);
 
         if (isGridComplete) {
             stopwatch.end();
@@ -238,19 +237,6 @@ public class Main {
         }
     }
 
-    public static boolean checkCompleteGrid(String[] board) {
-// Verwerken ENGLISH, AGE, GENERAL en ALRIGHT in grid.
-        if (board[0].equals("A") && board[1].equals("G") && board[2].equals("E")
-                && board[3].equals("L") && board[4].equals("E") && board[5].equals("N")
-                && board[6].equals("R") && board[7].equals("N") && board[8].equals("G")
-                && board[9].equals("I") && board[10].equals("E") && board[11].equals("L")
-                && board[12].equals("G") && board[13].equals("R") && board[14].equals("I")
-                && board[15].equals("H") && board[16].equals("A") && board[17].equals("S")
-                && board[18].equals("T") && board[19].equals("L") && board[20].equals("H")) {
-            return true;
-        }
-        return false;
-    }
 }
 
 
