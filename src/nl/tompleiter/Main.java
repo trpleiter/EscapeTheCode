@@ -1,7 +1,5 @@
 package nl.tompleiter;
 
-import java.sql.SQLOutput;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,8 +9,9 @@ public class Main {
         System.out.println("Welkom bij Escape The Code");
         System.out.println("Voordat we beginnen willen we eerst je naam en leeftijd weten");
 
-// Aanroepen Scanner Methode
+// Aanroepen Scanner methode en Stopwatch class (zodat deze is aan te roepen vanuit alle scopes in de main classe)
         Scanner input = new Scanner(System.in);
+        Stopwatch stopwatch = new Stopwatch();
 
 
 // Gebruiker laten invullen wie de huidige gebruiker is
@@ -44,7 +43,7 @@ public class Main {
         switch (chooseStartPlaying) {
             case "y": {
                 System.out.println("De tijd loopt! Succes met het eerste onderdeel, het kraken van de kluis!");
-//                TODO: EEN TIMER TOEVOEGEN
+                stopwatch.start();
                 break;
             }
             case "n": {
@@ -62,7 +61,7 @@ public class Main {
 //        //////////////////////////////////////KRAAK DE KLUIS//////////////////////////////////////////////////////////
         System.out.println("In de eerste ruimte bevinden zich gigantisch veel kluizen");
         boolean isRightDoorOpened = false;
-        while (isRightDoorOpened == false) {
+        while (!isRightDoorOpened) {
 
 // variabele toevoegen
             int firstDigitSafe;
@@ -97,7 +96,7 @@ public class Main {
             System.out.println("Het product van de getallen is: " + productOfDigits);
 
             boolean isSafeCracked = false;
-            while (isSafeCracked == false) {
+            while (!isSafeCracked) {
 
 // Ophalen gebruikers input van nummers;
                 System.out.println("Vul vier getallen achter elkaar in");
@@ -156,65 +155,100 @@ public class Main {
 
 // Eerste while-loop tot juiste oplossing
         boolean firstRiddleAnswer = false;
-        while (firstRiddleAnswer == false) {
+        while (!firstRiddleAnswer) {
             String firstRiddleGuess = riddleInput.nextLine().toUpperCase();
             if (firstRiddleGuess.equals(riddleSolutions[0])) {
                 firstRiddleAnswer = true;
                 System.out.println(firstRiddleGuess + " is het woord dat we zochten!");
             } else {
                 System.out.println(firstRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
-                ;
             }
         }
 // Tweede while-loop tot juiste oplossing
         System.out.println(player.getName() + ", we blijven even bij deze taal, wat zegt het getal " + player.getAge() + " jou?");
         boolean secondRiddleAnswer = false;
-        while (secondRiddleAnswer == false) {
+        while (!secondRiddleAnswer) {
             String secondRiddleGuess = riddleInput.nextLine().toUpperCase();
             if (secondRiddleGuess.equals(riddleSolutions[1])) {
                 secondRiddleAnswer = true;
                 System.out.println(secondRiddleGuess + " is het woord dat we zochten!");
             } else {
                 System.out.println(secondRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
-                ;
             }
         }
 // Derde while-loop tot juiste oplossing
         System.out.println("Over het algemeen gaat het tot nu toe best goed.");
         boolean thirdRiddleAnswer = false;
-        while (thirdRiddleAnswer == false) {
+        while (!thirdRiddleAnswer) {
             String thirdRiddleGuess = riddleInput.nextLine().toUpperCase();
             if (thirdRiddleGuess.equals(riddleSolutions[2])) {
                 thirdRiddleAnswer = true;
                 System.out.println(thirdRiddleGuess + " is het woord dat we zochten!");
             } else {
                 System.out.println(thirdRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
-                ;
-            }
-// Vierde while-loop tot juiste oplossing
-            System.out.println("Na deze laatste zin zou het goed moeten zijn..");
-            boolean fourthRiddleAnswer = false;
-            while (fourthRiddleAnswer == false) {
-                String fourthRiddleGuess = riddleInput.nextLine().toUpperCase();
-                if (fourthRiddleGuess.equals(riddleSolutions[3])) {
-                    fourthRiddleAnswer = true;
-                    System.out.println(fourthRiddleGuess + " is het woord dat we zochten!");
-                } else {
-                    System.out.println(fourthRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
-                }
-
-                System.out.println("Onthoud de antwoorden goed, er ontstaat een magisch veld op de muur in deze ruimte");
-
-// Grid aanmaken
-                String[] board = new String[21];
-
-                for (int i = 0; i < 21 ; i++) {
-                    board[i] = Integer.toString(i);
-                }
-                printBoard(board);
             }
         }
+// Vierde while-loop tot juiste oplossing
+        System.out.println("Na deze laatste zin zou het goed moeten zijn..");
+        boolean fourthRiddleAnswer = false;
+        while (!fourthRiddleAnswer) {
+            String fourthRiddleGuess = riddleInput.nextLine().toUpperCase();
+            if (fourthRiddleGuess.equals(riddleSolutions[3])) {
+                fourthRiddleAnswer = true;
+                System.out.println(fourthRiddleGuess + " is het woord dat we zochten!");
+            } else {
+                System.out.println(fourthRiddleGuess + " is niet het woord dat we zoeken, probeer het opnieuw");
+            }
+        }
+        System.out.println("Onthoud de antwoorden goed, er ontstaat een magisch veld op de muur in deze ruimte");
+//                ////////////////////////////////////////SUDOKU///////////////////////////////////////////////////////////
+// Grid aanmaken
+        String[] board = new String[21];
+
+        for (int i = 0; i < 21; i++) {
+            board[i] = Integer.toString(i);
+        }
+        printBoard(board);
+
+// Aanmaken String Array om over de juiste antwoorden te kunnen loopen (ENGLISH, AGE, GENERAL en ALRIGHT)
+        String[] gridSolutions = {"A", "G", "E", "L", "E", "N", "R", "N", "G", "I", "E", "L", "G", "R", "I", "H", "A", "S", "T", "L", "H"};
+
+// Aanmaken loop om elk veld te kunnen invullen en om dit vervolgens dit kunnen controleren
+
+        for (int i = 0; i < board.length; i++) {
+            boolean isGridFieldCorrect = false;
+            while (!isGridFieldCorrect) {
+                System.out.println("\nTyp letter op de positie " + i + " op het veld te vervangen");
+                Scanner gridInput = new Scanner(System.in);
+                String selectChar = gridInput.nextLine().toUpperCase();
+                board[i] = selectChar;
+                if (board[i].equals(gridSolutions[i])) {
+                    isGridFieldCorrect = true;
+                    printBoard(board);
+                } else {
+                    board[i] = Integer.toString(i);
+                    System.out.println("Dit is niet correct, probeer het nog eens");
+                }
+            }
+        }
+// Final check of het grid correct is
+//  A G E
+//  L E N
+//  R N G
+//  I E L
+//  G R I
+//  H A S
+//  T L H
+
+        boolean isGridComplete = checkCompleteGrid(board);
+
+        if (isGridComplete) {
+            stopwatch.end();
+            System.out.println("\nJe hebt de code binnen " + stopwatch.getGameTimeSeconds() + " seconden gekraakt, klasse!");
+        }
     }
+
+
     public static void printBoard(String[] board) {
         for (int i = 0; i < board.length; i++) {
             System.out.print(board[i]);
@@ -222,13 +256,27 @@ public class Main {
             boolean isEndOfRow = (i + 1) % 3 == 0;
             boolean isLastField = i == 20;
 
-            if (isEndOfRow == false) {
+            if (!isEndOfRow) {
                 System.out.print(" | ");
             }
             if (isEndOfRow && !isLastField) {
-                System.out.println("\n_____________");
+                System.out.println("\n____________");
             }
         }
+    }
+
+    public static boolean checkCompleteGrid(String[] board) {
+// Verwerken ENGLISH, AGE, GENERAL en ALRIGHT in grid.
+        if (board[0].equals("A") && board[1].equals("G") && board[2].equals("E")
+                && board[3].equals("L") && board[4].equals("E") && board[5].equals("N")
+                && board[6].equals("R") && board[7].equals("N") && board[8].equals("G")
+                && board[9].equals("I") && board[10].equals("E") && board[11].equals("L")
+                && board[12].equals("G") && board[13].equals("R") && board[14].equals("I")
+                && board[15].equals("H") && board[16].equals("A") && board[17].equals("S")
+                && board[18].equals("T") && board[19].equals("L") && board[20].equals("H")) {
+            return true;
+        }
+        return false;
     }
 }
 
