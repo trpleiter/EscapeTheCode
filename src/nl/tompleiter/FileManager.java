@@ -6,8 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileManager {
-    private String name;
-    private float gameTime;
+    private static String name;
+    private static float gameTime;
 
     public FileManager (String name, float gameTime) {
         this.name = name;
@@ -20,9 +20,9 @@ public class FileManager {
             File scoreFile = new File(fileName);
             FileWriter printScores = new FileWriter(scoreFile);
             BufferedWriter printer = new BufferedWriter(printScores);
-            printer.write("Donders:5468");
+            printer.write(name);
             printer.newLine();
-            printer.write("Piet=2567");
+            printer.write("gameTime");
             printer.close();
             return true;
         } catch (IOException e) {
