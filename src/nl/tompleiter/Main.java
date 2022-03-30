@@ -219,6 +219,7 @@ public class Main {
             FileManager fileManager = new FileManager(player.getName(), stopwatch.getGameTimeSeconds());
             fileManager.saveScores("C:\\Users\\tompl\\IdeaProjects\\EscapeTheCode\\txt\\scores.txt");
             System.out.println("\nJe bent de code binnen " + stopwatch.getGameTimeSeconds() + " seconden ontsnapt, klasse!");
+            fileManager.readScores();
         }
     }
 
