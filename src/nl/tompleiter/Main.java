@@ -241,5 +241,7 @@ public class Main {
     }
 
 }
+//TODO highscores werkend maken
+//TODO MENU VOORAF HIGHSCORES BEKIJKEN?
 
 
