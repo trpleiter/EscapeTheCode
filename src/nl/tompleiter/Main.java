@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-//        Decrypt
+//        Decrypt score file
         String key = "Hetisallemaalwat";
         File encryptedFile = new File("txt\\scores.txt.encrypted");
         File decryptedFile = new File("txt\\scores.txt.decrypted");
@@ -18,31 +18,46 @@ public class Main {
             ex.printStackTrace();
         }
 
-
         System.out.println("Welkom bij Escape The Code");
         System.out.println("Voordat we beginnen willen we eerst je naam en leeftijd weten");
 
-// Aanroepen Scanner methode en Stopwatch class (zodat deze is aan te roepen vanuit alle scopes in de main class)
-        Scanner input = new Scanner(System.in);
+// Aanroepen Scanner methode en Stopwatch class
+        Scanner inputPlayerName = new Scanner(System.in);
+        Scanner inputPlayerAge = new Scanner(System.in);
         Stopwatch stopwatch = new Stopwatch();
 
 
 // Gebruiker laten invullen wie de huidige speler is
+
         System.out.println("Naam:");
-        String currentPlayer = input.nextLine();
-        System.out.println("Leeftijd:");
-        int agePlayer = input.nextInt();
+
+// Input en inputcontrole
+        while (!inputPlayerName.hasNext("[A-Za-z]*")) {
+            System.out.println("Dat lijkt ons sterk, gebruik enkel letters");
+            inputPlayerName.next();
+        }
+        String currentPlayer = inputPlayerName.next();
+// Input en inputcontrole
+        int agePlayer;
+        do {
+            System.out.println("Leeftijd:");
+            while (!inputPlayerAge.hasNextInt()) {
+                System.out.println("Geef een getal op!");
+                inputPlayerAge.next();
+            }
+            agePlayer = inputPlayerAge.nextInt();
+        } while (agePlayer <= 0);
+        System.out.println("Goed, je bent " + agePlayer + " jaar oud.");
 
         Player player = new Player(currentPlayer, agePlayer);
         Game game = new Game(player);
 
 //Welkomsbericht
-
         System.out.println(player.getName() + "! Nogmaals, welkom bij Escape The Code.");
         if (player.getAge() < 18) {
-            System.out.println("Nog geen 18? Maakt niet uit, ook jong talent mag de code proberen te ontsnappen");
+            System.out.println("Dus nog geen 18? Maakt niet uit, ook jong talent mag de code proberen te ontsnappen");
         } else {
-            System.out.println(player.getAge() + " jaar oud! Wijsheid komt met de jaren, laten we zien hoe snel jij kunt ontsnappen uit onze code.");
+            System.out.println("Wijsheid komt met de jaren, laten we zien hoe snel jij kunt ontsnappen uit onze code.");
         }
         System.out.println("De bedoeling van het spel is om zo snel mogelijk tot het einde van de code te komen, wat er allemaal voorbij gaat komen is een verrassing, maar we kunnen je alvast verklappen dat je eerst een kluis moet zien te kraken.");
 
@@ -51,6 +66,13 @@ public class Main {
 
 // Ophalen gebruikers input om het spel te starten;
         Scanner startPlay = new Scanner(System.in);
+
+// Input en inputcontrole
+        while (!startPlay.hasNext("[yYnN]")) {
+            System.out.println("Dat lijkt ons sterk, toets [y] of [n]");
+            startPlay.next();
+        }
+
         String chooseStartPlaying = startPlay.nextLine().toLowerCase();
 
 // Switch statement om te bepalen hoe de code zich gedraagd na de keuze van de gebruiker om te starten met spelen;
@@ -72,6 +94,7 @@ public class Main {
             }
 
         }
+
 //        //////////////////////////////////////KRAAK DE KLUIS//////////////////////////////////////////////////////////
         System.out.println("In de eerste ruimte bevinden zich gigantisch veel kluizen");
 // Opzetten while loop zodat de speler wordt gereset naar het begin van het spel bij keuze van een verkeerde deur;
@@ -115,11 +138,52 @@ public class Main {
             while (!isSafeCracked) {
 
 // Ophalen input gebruiker;
-                System.out.println("Vul vier getallen achter elkaar in");
-                int firstGuess = input.nextInt();
-                int secondGuess = input.nextInt();
-                int thirdGuess = input.nextInt();
-                int fourthGuess = input.nextInt();
+                Scanner inputSafeDigit = new Scanner(System.in);
+                System.out.println("Vul vier positieve getallen achter elkaar in");
+                int firstGuess;
+                int secondGuess;
+                int thirdGuess;
+                int fourthGuess;
+// Input en inputcontrole
+                do {
+                    System.out.println("Getal 1:");
+                    while (!inputSafeDigit.hasNextInt()) {
+                        System.out.println("Geef een getal op!");
+                        inputSafeDigit.next();
+                    }
+                    firstGuess = inputSafeDigit.nextInt();
+                } while (firstGuess <= 0);
+
+// Input en inputcontrole
+                do {
+                    System.out.println("Getal 2:");
+                    while (!inputSafeDigit.hasNextInt()) {
+                        System.out.println("Geef een getal op!");
+                        inputSafeDigit.next();
+                    }
+                    secondGuess = inputSafeDigit.nextInt();
+                } while (secondGuess <= 0);
+
+// Input en inputcontrole
+                do {
+                    System.out.println("Getal 3:");
+                    while (!inputSafeDigit.hasNextInt()) {
+                        System.out.println("Geef een getal op!");
+                        inputSafeDigit.next();
+                    }
+                    thirdGuess = inputSafeDigit.nextInt();
+                } while (thirdGuess <= 0);
+
+// Input en inputcontrole
+                do {
+                    System.out.println("Getal 4:");
+                    while (!inputSafeDigit.hasNextInt()) {
+                        System.out.println("Geef een getal op!");
+                        inputSafeDigit.next();
+                    }
+                    fourthGuess = inputSafeDigit.nextInt();
+                } while (fourthGuess <= 0);
+
                 System.out.println("Je hebt de volgende getallen gekozen: " + firstGuess + ", " + secondGuess + ", " + thirdGuess + " en " + fourthGuess);
 
 // Conditie checken die in de Game class is gemaakt;
@@ -134,8 +198,7 @@ public class Main {
                 System.out.println(safeCrack);
 
             }
-// ////////////////////////////////////////////KIES DE JUISTE DEUR//////////////////////////////////////////////////////
-
+///////////////////////////////////////////////KIES DE JUISTE DEUR//////////////////////////////////////////////////////
             System.out.println("Met de sleutel kun je een deur openen, er zijn echter drie deuren en de sleutel kan maar één keer gebruikt worden");
             System.out.println("Wanneer de gekozen deur niet juist is, moet er een nieuwe kluis worden geopend voor een nieuwe sleutel");
 
@@ -147,8 +210,18 @@ public class Main {
             System.out.println("De juiste deur is deur " + randomDoorChooser);
 
 // Gebruiker een deur laten kiezen
-            System.out.println("Voor welke deur wil jij jouw sleutel gebruiken? Typ het nummer van de deur [1, 2 of 3]");
-            int doorGuess = input.nextInt();
+            Scanner inputDoorNumber = new Scanner(System.in);
+
+// Input en inputcontrole
+            int doorGuess;
+            do {
+                System.out.println("Voor welke deur wil jij jouw sleutel gebruiken? Typ het nummer van de deur [1, 2 of 3]");
+                while (!inputDoorNumber.hasNextInt()) {
+                    System.out.println("Geef een getal op!");
+                    inputDoorNumber.next();
+                }
+                doorGuess = inputDoorNumber.nextInt();
+            } while (doorGuess <= 0);
 
 // Logica goede deur
             isRightDoorOpened = game.checkRightDoor(randomDoorChooser, doorGuess);
@@ -160,9 +233,7 @@ public class Main {
             System.out.println(rightDoor);
         }
 
-
-// //////////////////////////////////////RAADSEL////////////////////////////////////////////////////////////////////////
-
+/////////////////////////////////////////RAADSEL////////////////////////////////////////////////////////////////////////
 // String Array voor het vastleggen van de oplossingen
         String[] riddleSolutions = {"ENGLISH", "AGE", "GENERAL", "ALRIGHT"};
         System.out.println("Om een stukje dichterbij het einde van de code te komen dien een raadsel op te lossen, bij elke zin hoort een woord. Typ eerst een woord in waarvan jij denkt dat dat woord bij de eerste zin hoort.");
@@ -188,7 +259,7 @@ public class Main {
         }
         System.out.println("Onthoud de antwoorden goed, er ontstaat een magisch veld op de muur in deze ruimte!");
 
-//                ////////////////////////////////////////SUDOKU///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////SUDOKU///////////////////////////////////////////////////////////
 // Grid aanmaken
         String[] board = new String[21];
 
