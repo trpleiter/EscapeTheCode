@@ -113,11 +113,13 @@ public class Main {
                 isSafeCracked = game.checkSafeCracked(sumOfDigits, productOfDigits, firstGuess, secondGuess, thirdGuess, fourthGuess);
 
 // Bericht na invoer gebruiker;
-                if (isSafeCracked) {
-                    System.out.println("Klink! Je hebt de cijfercombinatie goed, de kluis is gekraakt! In de kluis vind je een sleutel!");
-                } else {
-                    System.out.println("De cijfercombinatie is niet juist, de kluis zit nog dicht!");
-                }
+
+             String safeCrack = isSafeCracked
+                        ? "Klink! Je hebt de cijfercombinatie goed, de kluis is gekraakt! In de kluis vind je een sleutel!"
+                        : "De cijfercombinatie is niet juist, de kluis zit nog dicht!";
+
+                System.out.println(safeCrack);
+
             }
 // ////////////////////////////////////////////KIES DE JUISTE DEUR//////////////////////////////////////////////////////
 
@@ -137,11 +139,12 @@ public class Main {
 
 // Logica goede deur
             isRightDoorOpened = game.checkRightDoor (randomDoorChooser, doorGuess);
-            if (isRightDoorOpened) {
-                System.out.println("Je hebt deur " + doorGuess + " gekozen en dat is de juiste deur! In de volgende ruimte dien je een raadsel op te lossen.");
-            } else {
-                System.out.println("Helaas, achter deur " + doorGuess + " bevindt zich een lege ruimte, maak snel een nieuwe kluis open!");
-            }
+
+            String rightDoor = isRightDoorOpened
+                    ?"Je hebt deur " + doorGuess + " gekozen en dat is de juiste deur! In de volgende ruimte dien je een raadsel op te lossen."
+                    :"Helaas, achter deur " + doorGuess + " bevindt zich een lege ruimte, maak snel een nieuwe kluis open!";
+
+            System.out.println(rightDoor);
         }
 
 
@@ -217,7 +220,7 @@ public class Main {
             stopwatch.end();
             player.setGameTime(stopwatch.getGameTimeSeconds());
             FileManager fileManager = new FileManager(player.getName(), stopwatch.getGameTimeSeconds());
-            fileManager.saveScores("C:\\Users\\tompl\\IdeaProjects\\EscapeTheCode\\txt\\scores.txt");
+            fileManager.saveScores("txt\\scores.txt");
             System.out.println("\nJe bent de code binnen " + stopwatch.getGameTimeSeconds() + " seconden ontsnapt, klasse!");
             fileManager.readScores();
         }

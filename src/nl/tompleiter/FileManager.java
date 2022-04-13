@@ -32,7 +32,7 @@ public class FileManager {
     }
 
     public static void saveMessage(String[] args) {
-        boolean scoresSaved = saveScores("scores.txt");
+        boolean scoresSaved = saveScores("txt\\scores.txt");
 
         if (scoresSaved) {
             System.out.println("Scores zijn opgeslagen");
@@ -43,7 +43,7 @@ public class FileManager {
     }
 
     public static void readScores() {
-        File scoreFile = new File("scores.txt");
+        File scoreFile = new File("txt\\scores.txt");
         try {
             Scanner scoreScanner = new Scanner(scoreFile);
             while (scoreScanner.hasNextLine()) {
