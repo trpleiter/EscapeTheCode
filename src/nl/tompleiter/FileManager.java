@@ -14,7 +14,6 @@ public class FileManager {
         this.name = name;
         this.gameTime = gameTime;
     }
-//TODO maak de te schrijven data variabel
 
     public static boolean saveScores(String fileName) {
         try {
@@ -31,19 +30,8 @@ public class FileManager {
         }
     }
 
-    public static void saveMessage(String[] args) {
-        boolean scoresSaved = saveScores("txt\\scores.txt");
-
-        if (scoresSaved) {
-            System.out.println("Scores zijn opgeslagen");
-        }
-        if (!scoresSaved) {
-            System.out.println("Scores konden niet worden opgeslagen");
-        }
-    }
-
     public static void readScores() {
-        File scoreFile = new File("txt\\scores.txt");
+        File scoreFile = new File("txt\\scores.txt.decrypted");
         try {
             Scanner scoreScanner = new Scanner(scoreFile);
             while (scoreScanner.hasNextLine()) {

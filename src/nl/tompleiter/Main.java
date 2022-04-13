@@ -1,11 +1,24 @@
 package nl.tompleiter;
 
+import java.io.File;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+//        Decrypt
+        String key = "Hetisallemaalwat";
+        File encryptedFile = new File("txt\\scores.txt.encrypted");
+        File decryptedFile = new File("txt\\scores.txt.decrypted");
+        try {
+            CryptoUtils.decrypt(key, encryptedFile, decryptedFile);
+        } catch (CryptoException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+
+
         System.out.println("Welkom bij Escape The Code");
         System.out.println("Voordat we beginnen willen we eerst je naam en leeftijd weten");
 
@@ -114,7 +127,7 @@ public class Main {
 
 // Bericht na invoer gebruiker;
 
-             String safeCrack = isSafeCracked
+                String safeCrack = isSafeCracked
                         ? "Klink! Je hebt de cijfercombinatie goed, de kluis is gekraakt! In de kluis vind je een sleutel!"
                         : "De cijfercombinatie is niet juist, de kluis zit nog dicht!";
 
@@ -138,11 +151,11 @@ public class Main {
             int doorGuess = input.nextInt();
 
 // Logica goede deur
-            isRightDoorOpened = game.checkRightDoor (randomDoorChooser, doorGuess);
+            isRightDoorOpened = game.checkRightDoor(randomDoorChooser, doorGuess);
 
             String rightDoor = isRightDoorOpened
-                    ?"Je hebt deur " + doorGuess + " gekozen en dat is de juiste deur! In de volgende ruimte dien je een raadsel op te lossen."
-                    :"Helaas, achter deur " + doorGuess + " bevindt zich een lege ruimte, maak snel een nieuwe kluis open!";
+                    ? "Je hebt deur " + doorGuess + " gekozen en dat is de juiste deur! In de volgende ruimte dien je een raadsel op te lossen."
+                    : "Helaas, achter deur " + doorGuess + " bevindt zich een lege ruimte, maak snel een nieuwe kluis open!";
 
             System.out.println(rightDoor);
         }
@@ -216,13 +229,23 @@ public class Main {
 
         boolean isGridComplete = game.checkCompleteGrid(board);
 
+// Score wegschrijven en encrypten
         if (isGridComplete) {
             stopwatch.end();
-            player.setGameTime(stopwatch.getGameTimeSeconds());
             FileManager fileManager = new FileManager(player.getName(), stopwatch.getGameTimeSeconds());
-            fileManager.saveScores("txt\\scores.txt");
+            fileManager.saveScores("txt\\scores.txt.decrypted");
             System.out.println("\nJe bent de code binnen " + stopwatch.getGameTimeSeconds() + " seconden ontsnapt, klasse!");
+
             fileManager.readScores();
+
+            try {
+                CryptoUtils.encrypt(key, decryptedFile, encryptedFile);
+
+            } catch (CryptoException ex) {
+                System.out.println(ex.getMessage());
+                ex.printStackTrace();
+            }
+            decryptedFile.delete();
         }
     }
 
@@ -244,7 +267,3 @@ public class Main {
     }
 
 }
-//TODO highscores werkend maken
-//TODO MENU VOORAF HIGHSCORES BEKIJKEN?
-
-
