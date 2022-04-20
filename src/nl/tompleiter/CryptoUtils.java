@@ -29,8 +29,8 @@ public class CryptoUtils {
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
     }
 
-    private static void doCrypto(int cipherMode, String key, File inputFile,
-                                 File outputFile) throws CryptoException {
+    private static void doCrypto(int cipherMode, String key, File inputFile, File outputFile)
+            throws CryptoException {
         try {
             Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);

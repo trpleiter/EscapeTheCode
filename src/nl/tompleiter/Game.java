@@ -1,10 +1,7 @@
 package nl.tompleiter;
 
-import java.util.Random;
-
 public class Game {
     private Player player;
-
 
     public Game(Player player) {
         this.player = player;
@@ -31,9 +28,8 @@ public class Game {
         return false;
     }
 
-// Check uitkomst invullen van veld;
+// Check uitkomst invullen van veld. Verwerken ENGLISH, AGE, GENERAL en ALRIGHT in grid;;
     public boolean checkCompleteGrid(String[] board) {
-// Verwerken ENGLISH, AGE, GENERAL en ALRIGHT in grid;
         if (board[0].equals("A") && board[1].equals("G") && board[2].equals("E")
                 && board[3].equals("L") && board[4].equals("E") && board[5].equals("N")
                 && board[6].equals("R") && board[7].equals("N") && board[8].equals("G")
