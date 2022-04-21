@@ -119,12 +119,6 @@ public class Main {
             thirdDigitSafe = randomizer.nextInt(digitSafeMaximum) + 1;
             fourthDigitSafe = randomizer.nextInt(digitSafeMaximum) + 1;
 
-// Controle willekeurig gegenereerde nummers;
-            System.out.println("Het eerste getal is: " + firstDigitSafe);
-            System.out.println("Het tweede getal is: " + secondDigitSafe);
-            System.out.println("Het derde getal is: " + thirdDigitSafe);
-            System.out.println("Het vierde getal is: " + fourthDigitSafe);
-
 // Som en product bepalen en vastzetten in variabelen;
             int sumOfDigits = firstDigitSafe + secondDigitSafe + thirdDigitSafe + fourthDigitSafe;
             int productOfDigits = firstDigitSafe * secondDigitSafe * thirdDigitSafe * fourthDigitSafe;
@@ -206,9 +200,6 @@ public class Main {
 // Aanmaken variabelen voor het genereren van een willekeurig nummer om een juiste deur te kunnen kiezen;
             int amountOfDoors = 3;
             int randomDoorChooser = randomizer.nextInt(amountOfDoors) + 1;
-
-// Controlezin juiste deur;
-            System.out.println("De juiste deur is deur " + randomDoorChooser);
 
 // Gebruiker een deur laten kiezen;
             Scanner inputDoorNumber = new Scanner(System.in);
@@ -305,10 +296,10 @@ public class Main {
         if (isGridComplete) {
             stopwatch.end();
             FileManager fileManager = new FileManager(player.getName(), stopwatch.getGameTimeSeconds());
-            fileManager.saveScores("txt\\scores.txt.decrypted");
             System.out.println("\nJe bent de code binnen " + stopwatch.getGameTimeSeconds() + " seconden ontsnapt, klasse!");
-
             fileManager.readScores();
+
+            fileManager.saveScores("txt\\scores.txt.decrypted");
 
             try {
                 CryptoUtils.encrypt(key, decryptedFile, encryptedFile);
