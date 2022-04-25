@@ -95,7 +95,7 @@ public class Main {
 
         }
 
-//        //////////////////////////////////////KRAAK DE KLUIS//////////////////////////////////////////////////////////
+////////////////////////////////////////////////KRAAK DE KLUIS//////////////////////////////////////////////////////////
         System.out.println("In de eerste ruimte bevinden zich gigantisch veel kluizen");
 // Opzetten while loop zodat de speler wordt gereset naar het begin van het spel bij keuze van een verkeerde deur;
         boolean isRightDoorOpened = false;
